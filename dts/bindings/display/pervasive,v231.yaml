@@ -1,0 +1,62 @@
+#
+# Copyright (c) 2019 Filip Brozovic <fbrozovic@gmail.com>
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+---
+title: V231 eInk Display Controller
+version: 0.1
+
+description: >
+    This is a representation of the V231 eInk Display Controller
+
+inherits:
+    !include spi-device.yaml
+
+properties:
+    compatible:
+      constraint: "pervasive,v231"
+
+    height:
+      type: int
+      category: required
+      description: Height in pixel of the panel driven by the controller
+      generation: define
+
+    width:
+      type: int
+      category: required
+      description: Width in pixel of the panel driven by the controller
+      generation: define
+
+    reset-gpios:
+      type: compound
+      category: required
+      generation: define, use-prop-name
+
+    cmd-data-gpios:
+      type: compound
+      category: required
+      generation: define, use-prop-name
+
+    busy-gpios:
+      type: compound
+      category: required
+      generation: define, use-prop-name
+
+    enable-gpios:
+      type: compound
+      category: required
+      generation: define, use-prop-name
+
+    bs-gpios:
+      type: compound
+      category: optional
+      generation: define, use-prop-name
+
+    orientation:
+      type: int
+      category: optional
+      generation: define, use-prop-name
+
+...

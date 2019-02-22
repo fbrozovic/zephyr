@@ -1,0 +1,40 @@
+# Kconfig - Configuration options for Pervasive Displays V231 display
+
+#
+# Copyright (c) 2019 Filip Brozovic <fbrozovic@gmail.com>
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+menuconfig V231
+	bool "Pervasive Displays V231 display driver"
+	help
+	  Enable V231 display driver compliant with display driver API.
+
+if V231
+
+config V231_POOL_BLOCK_NUM
+	int "Number of memory pool blocks"
+	default 1
+	help
+	  Number of blocks in the frame buffer memory pool.
+
+config V231_POOL_BLOCK_MIN
+	hex "Minimum memory pool block size"
+	default 64
+	help
+	  Minimum block size in the frame buffer memory pool.
+
+config V231_POOL_BLOCK_MAX
+	hex "Maximum memory pool block size"
+	default 4096
+	help
+	  Maximum block size in the frame buffer memory pool.
+
+config V231_POOL_BLOCK_ALIGN
+	int "Alignment of memory pool blocks"
+	default 64
+	help
+	  Byte alignment in the frame buffer memory pool.
+
+endif #V231

@@ -1,0 +1,29 @@
+/*
+ * Copyright (c) 2019 Filip Brozovic <fbrozovic@gmail.com>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+#ifndef ZEPHYR_DRIVERS_DISPLAY_DISPLAY_V231_H_
+#define ZEPHYR_DRIVERS_DISPLAY_DISPLAY_V231_H_
+
+#include <zephyr.h>
+
+#define V231_CMD_DATA_PIN_COMMAND 0
+#define V231_CMD_DATA_PIN_DATA 1
+
+#define V231_CMD_PSR 0x00
+#define V231_CMD_POWER_OFF 0x02
+#define V231_CMD_POWER_ON 0x04
+#define V231_CMD_DATA1 0x10
+#define V231_CMD_REFRESH 0x12
+#define V231_CMD_DATA2 0x13
+#define V231_CMD_TEMP_ACTIVATE 0xe0
+#define V231_CMD_TEMP_SET 0xe5
+
+#define V231_DATA_PSR_SOFT_RESET 0x0e
+#define V231_DATA_TEMP_ACTIVATE 0x02
+#define V231_DATA_PSR_DEFAULT {0xcf, 0x8d}
+
+#define V231_DATA_PSR_ROTATION_MASK 0x0c
+
+#endif /* ZEPHYR_DRIVERS_DISPLAY_DISPLAY_V231_H_ */
