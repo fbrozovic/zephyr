@@ -1,0 +1,17 @@
+# STMicroelectronics STM32H743xx MCU
+
+# Copyright (c) 2019 SEAL AG
+# SPDX-License-Identifier: Apache-2.0
+
+if SOC_STM32H743XX
+
+config SOC
+	default "stm32h743xx"
+
+config NUM_IRQS
+	default 150
+
+config CPU_CORTEX_M7
+	default y
+
+endif # SOC_STM32H743XX
