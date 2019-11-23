@@ -217,11 +217,19 @@ static int stm32_clock_control_init(struct device *dev)
 #if !defined(CONFIG_CPU_CORTEX_M4)
 
 #ifdef CONFIG_CLOCK_STM32_SYSCLK_SRC_PLL
+
 	/* Power Configuration */
+#ifdef LL_PWR_DIRECT_SMPS_SUPPLY
 	LL_PWR_ConfigSupply(LL_PWR_DIRECT_SMPS_SUPPLY);
+#else
+	LL_PWR_ConfigSupply(LL_PWR_LDO_SUPPLY);
+#endif
 	LL_PWR_SetRegulVoltageScaling(LL_PWR_REGU_VOLTAGE_SCALE1);
 	while (LL_PWR_IsActiveFlag_VOS() == 0) {
 	}
+
+	/* Set FLASH latency */
+	LL_FLASH_SetLatency(LL_FLASH_LATENCY_4);
 
 #ifdef CONFIG_CLOCK_STM32_PLL_SRC_HSE
 
@@ -236,14 +244,19 @@ static int stm32_clock_control_init(struct device *dev)
 	while (LL_RCC_HSE_IsReady() != 1) {
 	}
 
-	/* Set FLASH latency */
-	LL_FLASH_SetLatency(LL_FLASH_LATENCY_4);
-
 	/* Main PLL configuration and activation */
 	LL_RCC_PLL_SetSource(LL_RCC_PLLSOURCE_HSE);
+#elif defined(CONFIG_CLOCK_STM32_PLL_SRC_HSI)
+	/* Enable HSI oscillator */
+	LL_RCC_HSI_Enable();
+	while (LL_RCC_HSI_IsReady() != 1) {
+	}
+
+	/* Main PLL configuration and activation */
+	LL_RCC_PLL_SetSource(LL_RCC_PLLSOURCE_HSI);
 #else
-	#error "CONFIG_CLOCK_STM32_PLL_SRC_HSE not selected"
-#endif /* CONFIG_CLOCK_STM32_PLL_SRC_HSE */
+	#error "Invalid PLL clock source selected"
+#endif /* CONFIG_CLOCK_STM32_PLL_SRC_* */
 
 	/* Configure PLL1 */
 	LL_RCC_PLL1P_Enable();
