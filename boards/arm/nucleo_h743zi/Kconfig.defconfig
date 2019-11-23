@@ -1,0 +1,42 @@
+# STM32H743ZI Nucleo board configuration
+
+# Copyright (c) 2019 SEAL AG
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_NUCLEO_H743ZI
+
+config BOARD
+	default "nucleo_h743zi"
+
+# clock configuration
+config SYS_CLOCK_HW_CYCLES_PER_SEC
+	default 480000000
+
+config CLOCK_STM32_D1CPRE
+	default 1
+
+config CLOCK_STM32_HPRE
+	# HCLK: 240MHz
+	default 2
+
+config CLOCK_STM32_D2PPRE1
+	# APBX: 120MHz
+	default 2
+
+config CLOCK_STM32_D2PPRE2
+	default 2
+
+config CLOCK_STM32_D1PPRE
+	default 2
+
+config CLOCK_STM32_D3PPRE
+	default 2
+
+if UART_CONSOLE
+
+config UART_3
+	default y
+
+endif # UART_CONSOLE
+
+endif # BOARD_NUCLEO_H743ZI

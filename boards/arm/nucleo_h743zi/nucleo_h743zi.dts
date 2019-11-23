@@ -1,0 +1,56 @@
+/*
+ * Copyright (c) 2019 SEAL AG
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+#include <st/h7/stm32h743Xi.dtsi>
+
+/ {
+	model = "STMicroelectronics STM32H743ZI-NUCLEO board";
+	compatible = "st,stm32h743zi-nucleo", "st,stm32h743";
+
+	aliases {
+		led0 = &green_led_1;
+		led1 = &yellow_led_2;
+		led2 = &red_led_3;
+		sw0 = &user_button;
+	};
+
+	chosen {
+		zephyr,console = &usart3;
+		zephyr,shell-uart = &usart3;
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+		green_led_1: led_1 {
+			gpios = <&gpiob 0 GPIO_INT_ACTIVE_HIGH>;
+			label = "User LD1";
+		};
+		yellow_led_2: led_2 {
+			gpios = <&gpioe 1 GPIO_INT_ACTIVE_HIGH>;
+			label = "User LD2";
+		};
+		red_led_3: led_3 {
+			gpios = <&gpiob 14 GPIO_INT_ACTIVE_HIGH>;
+			label = "User LD3";
+		};
+	};
+
+	gpio_keys {
+		compatible = "gpio-keys";
+		user_button: button {
+			gpios = <&gpioc 13 GPIO_INT_ACTIVE_HIGH>;
+			label = "User";
+		};
+	};
+};
+
+&usart3 {
+	current-speed = <115200>;
+	status = "okay";
+};
